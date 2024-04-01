@@ -75,7 +75,7 @@ object Library {
         val icu = if (hostOs.isWindows) "icudtl.dat" else null
 
         if (hostOs == OS.Android) {
-            System.loadLibrary("skiko-$hostId")
+            System.loadLibrary("skiko")
             return
         }
 

@@ -22,43 +22,43 @@ internal val Project.isInIdea: Boolean
     }
 
 val Project.supportAndroid: Boolean
-    get() = findProperty("skiko.android.enabled") == "true" // || isInIdea
+    get() = true
 
 val Project.supportAwt: Boolean
-    get() = findProperty("skiko.awt.enabled") == "true" || isInIdea
+    get() = false
 
 val Project.supportAllNative: Boolean
-    get() = findProperty("skiko.native.enabled") == "true" || isInIdea
+    get() = false
 
 val Project.supportAllNativeIos: Boolean
-    get() = supportAllNative || findProperty("skiko.native.ios.enabled") == "true" || isInIdea
+    get() = false
 
 val Project.supportNativeIosArm64: Boolean
-    get() = supportAllNativeIos || findProperty("skiko.native.ios.arm64.enabled") == "true" || isInIdea
+    get() = false
 
 val Project.supportNativeIosSimulatorArm64: Boolean
-    get() = supportAllNativeIos || findProperty("skiko.native.ios.simulatorArm64.enabled") == "true" || isInIdea
+    get() = false
 
 val Project.supportNativeIosX64: Boolean
-    get() = supportAllNativeIos || findProperty("skiko.native.ios.x64.enabled") == "true" || isInIdea
+    get() = false
 
 val Project.supportAnyNativeIos: Boolean
-    get() = supportAllNativeIos || supportNativeIosArm64 || supportNativeIosSimulatorArm64 || supportNativeIosX64
+    get() = false
 
 val Project.supportNativeMac: Boolean
-    get() = supportAllNative || findProperty("skiko.native.mac.enabled") == "true" || isInIdea
+    get() = false
 
 val Project.supportNativeLinux: Boolean
-    get() = supportAllNative || findProperty("skiko.native.linux.enabled") == "true" || isInIdea
+    get() = false
 
 val Project.supportAnyNative: Boolean
-    get() = supportAllNative || supportAnyNativeIos || supportNativeMac || supportNativeLinux
+    get() = false
 
 val Project.supportWasm: Boolean
-    get() = findProperty("skiko.wasm.enabled") == "true" || isInIdea
+    get() = false
 
 val Project.supportJs: Boolean
-    get() = findProperty("skiko.js.enabled") == "true" || supportWasm || isInIdea
+    get() = false
 
 val coroutinesVersion = "1.8.0-RC"
 val atomicfuVersion = "0.23.1"
@@ -1002,7 +1002,7 @@ fun Project.androidClangFor(targetArch: Arch, version: String = "30"): Provider<
 fun Provider<String>.orEmpty(): Provider<String> =
     orElse("")
 
-fun Project.androidJar(askedVersion: String = ""): Provider<File> =
+fun Project.androidJar(askedVersion: String = "34"): Provider<File> =
     androidHomePath().map { androidHomePath ->
         val androidHome = File(androidHomePath)
         val version = if (askedVersion.isEmpty()) {
